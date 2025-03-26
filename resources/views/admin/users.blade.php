@@ -1,173 +1,137 @@
-@extends('admin.adminmaster')
+@extends('admin.master')
 
 @section('content')
-    <div class="container mt-5">
+    <section class="section dashboard">
         <div class="row">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center mb-3">
 
-                </div>
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
 
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-                <main id="main" class="main">
-                    <div class="pagetitle">
-                        <h1>Data Pengguna</h1>
-                    </div>
-                    <!-- End Page Title -->
+                    <!-- Customers Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card customers-card">
 
-                    <section class="section">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
 
-                                            <h5 class="card-title">Datatables</h5>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#createUserModal">
-                                                Tambah Pengguna
-                                            </button>
-                                        </div>
-                                        <p>
-                                            Add lightweight datatables to your project with using the
-                                            <a href="https://github.com/fiduswriter/Simple-DataTables"
-                                                target="_blank">Simple DataTables</a>
-                                            library. Just add <code>.datatable</code> class name to any
-                                            table you wish to conver to a datatable. Check for
-                                            <a href="https://fiduswriter.github.io/simple-datatables/demos/"
-                                                target="_blank">more examples</a>.
-                                        </p>
+                                    <li><a class="dropdown-item" href="#">Hari ini</a></li>
+                                    <li><a class="dropdown-item" href="#">Bulan ini</a></li>
+                                    <li><a class="dropdown-item" href="#">Tahun ini</a></li>
+                                </ul>
+                            </div>
 
-                                        <!-- Table with stripped rows -->
-                                        <table class="table table-striped table-hover datatable">
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">User Type</th>
-                                                    <th scope="col">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($users as $user)
-                                                    <tr>
-                                                        <td>{{ $user->name }}</td>
-                                                        <td>{{ $user->email }}</td>
-                                                        <td>
-                                                            @if ($user->usertype == 1)
-                                                                Admin
-                                                            @elseif ($user->usertype == 0)
-                                                                User
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('edit.user', ['id' => $user->id]) }}"
-                                                                class="btn btn-sm btn-warning">Edit</a>
-                                                            @if (Auth::user()->usertype == 1)
-                                                                @if ($user->usertype == 0)
-                                                                    <a href="{{ route('delete.user', ['id' => $user->id]) }}"
-                                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')"
-                                                                        class="btn btn-sm btn-danger">Hapus</a>
-                                                                @else
-                                                                    Tidak Bisa Hapus
-                                                                @endif
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        <!-- End Table with stripped rows -->
+                            <div class="card-body">
+                                <h5 class="card-title">Customers<span> | Hari ini</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>145</h6>
+                                        <span class="text-success small pt-1 fw-bold">12%</span> <span
+                                            class="text-muted small pt-2 ps-1">Meningkat</span>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                </main>
 
-            </div>
-        </div>
-    </div>
+                        </div>
+                    </div><!-- End Sales Card -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createUserModalLabel">Tambah Pengguna Baru</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{--  --}}
-                    <form action="{{ route('users.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">Nama</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                    <!-- Revenue Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Hari ini</a></li>
+                                    <li><a class="dropdown-item" href="#">Bulan ini</a></li>
+                                    <li><a class="dropdown-item" href="#">Tahun ini</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Keuangan <span>| Bulan ini</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>Rp3.000.000</h6>
+                                        <span class="text-success small pt-1 fw-bold">8%</span> <span
+                                            class="text-muted small pt-2 ps-1">Meningkat</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                    </div><!-- End Revenue Card -->
+
+                    <!-- Customers Card -->
+                    <div class="col-xxl-4 col-xl-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Daftar Pengguna</h5>
+
+                                <!-- Table with stripped rows -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>
+                                                    @if (Auth::user()->usertype == '1')
+                                                        @if ($user->usertype == '0')
+                                                            <a href="{{ route('delete.user', ['id' => $user->id]) }}"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')"
+                                                                class="btn btn-sm btn-danger">Hapus</a>
+                                                        @else
+                                                            Tidak Bisa Hapus
+                                                        @endif
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Table with stripped rows -->
+
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="usertype">User Type</label>
-                            <select class="form-control" id="usertype" name="usertype" required>
-                                <option value="1">Admin</option>
-                                <option value="0">User</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+
+
+
+                    </div>
+                    <!-- End Customers Card -->
+
+
+                </div><!-- End News & Updates -->
+
+            </div><!-- End Right side columns -->
+
         </div>
-    </div>
+    </section>
 @endsection
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#createUserModal').on('hidden.bs.modal', function() {
-            location.reload();
-        });
-    });
-    // Datatables script
-    $(document).ready(function() {
-        $('.table').DataTable({
-            "lengthMenu": [5, 10, 25, 50, 75, 100], // Pilihan entri per halaman
-            "pageLength": 10, // Jumlah entri per halaman default
-            "searching": true, // Aktifkan fitur pencarian
-            "ordering": true, // Aktifkan pengurutan kolom
-            "info": true, // Tampilkan informasi jumlah data
-            "autoWidth": false, // Nonaktifkan penyesuaian lebar otomatis
-            "language": {
-                "paginate": {
-                    "previous": '<i class="fas fa-angle-left"></i>',
-                    "next": '<i class="fas fa-angle-right"></i>'
-                },
-                "search": "Cari:",
-                "lengthMenu": "Tampilkan _MENU_ entri per halaman",
-                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                "infoFiltered": "(disaring dari _MAX_ total entri)"
-            }
-        });
-    });
-</script>
